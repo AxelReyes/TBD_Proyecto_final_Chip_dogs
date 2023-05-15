@@ -1,0 +1,132 @@
+MySQL Shell 8.0.32
+
+Copyright (c) 2016, 2023, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 16
+Server version: 8.0.32 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create database chip_dogs;
+Query OK, 1 row affected (0.0028 sec)
+ MySQL  localhost:3306 ssl  SQL > use chip_dogs;
+Default schema set to `chip_dogs`.
+Fetching global names, object names from `chip_dogs` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > create table propietarios (
+                                          ->   id_propietario int primary key auto_increment,
+                                          ->   nombre varchar(50) not null,
+                                          ->   apellido_pat varchar(50) null,
+                                          ->   apellido_mat varchar(50) null,
+                                          ->   direccion varchar(100) not null,
+                                          ->   ciudad varchar(50) not null,
+                                          ->   codigo_Postal varchar(10) not null,
+                                          ->   telefono varchar(20) not null,
+                                          ->   correo_electronico varchar(100) not null,
+                                          ->   fecha_registro date not null
+                                          -> );
+Query OK, 0 rows affected (0.0141 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > create table mascotas (
+                                          ->   id int auto_increment primary key,
+                                          ->   nombre varchar(50) not null,
+                                          ->   especie enum('Perro','Gato') not null,
+                                          ->   raza varchar(50) not null,
+                                          ->   sexo enum('Macho','Hembra') not null,
+                                          ->   edad int null,
+                                          ->   color varchar(50) not null,
+                                          ->   tamaño enum('Pequeño','Mediano','Grande') not null,
+                                          ->   peso decimal(4,2) null,
+                                          ->   fecha_nacimiento date null,
+                                          ->   id_propietario int,
+                                          -> foreign key(id_propietario) references propietarios(id_propietario) on delete cascade on update cascade
+                                          -> );
+Query OK, 0 rows affected (0.0259 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > show tables;
++---------------------+
+| Tables_in_chip_dogs |
++---------------------+
+| mascotas            |
+| propietarios        |
++---------------------+
+2 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > desc mascotas;
++------------------+------------------------------------+------+-----+---------+----------------+
+| Field            | Type                               | Null | Key | Default | Extra          |
++------------------+------------------------------------+------+-----+---------+----------------+
+| id               | int                                | NO   | PRI | NULL    | auto_increment |
+| nombre           | varchar(50)                        | NO   |     | NULL    |                |
+| especie          | enum('Perro','Gato')               | NO   |     | NULL    |                |
+| raza             | varchar(50)                        | NO   |     | NULL    |                |
+| sexo             | enum('Macho','Hembra')             | NO   |     | NULL    |                |
+| edad             | int                                | YES  |     | NULL    |                |
+| color            | varchar(50)                        | NO   |     | NULL    |                |
+| tamaño           | enum('Pequeño','Mediano','Grande') | NO   |     | NULL    |                |
+| peso             | decimal(4,2)                       | YES  |     | NULL    |                |
+| fecha_nacimiento | date                               | YES  |     | NULL    |                |
+| id_propietario   | int                                | YES  | MUL | NULL    |                |
++------------------+------------------------------------+------+-----+---------+----------------+
+11 rows in set (0.0025 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > desc propietarios;
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| id_propietario     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre             | varchar(50)  | NO   |     | NULL    |                |
+| apellido_pat       | varchar(50)  | YES  |     | NULL    |                |
+| apellido_mat       | varchar(50)  | YES  |     | NULL    |                |
+| direccion          | varchar(100) | NO   |     | NULL    |                |
+| ciudad             | varchar(50)  | NO   |     | NULL    |                |
+| codigo_Postal      | varchar(10)  | NO   |     | NULL    |                |
+| telefono           | varchar(20)  | NO   |     | NULL    |                |
+| correo_electronico | varchar(100) | NO   |     | NULL    |                |
+| fecha_registro     | date         | NO   |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+10 rows in set (0.0024 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+                                          -> values('Juan', 'Gómez', 'López', 'Calle 123', 'Ciudad A', '12345', '6149876543', 'juan@example.com', '2023-05-01');
+Query OK, 1 row affected (0.0086 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+                                          -> values('María', 'Pérez', 'González', 'Avenida 456', 'Ciudad B', '54321', '6149876543', 'maria@example.com', '2023-05-02');
+Query OK, 1 row affected (0.0013 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+                                          -> values ('Pedro', 'Rodríguez', 'Martínez', 'Calle Principal 789', 'Ciudad C', '67890', '6149876543', 'pedro@example.com', '2023-05-03');
+Query OK, 1 row affected (0.0019 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+                                          -> values ('Max', 'Perro', 'Labrador', 2, 'Negro', 'Grande', 25.5, '2021-03-15', 'Macho', 1);
+Query OK, 1 row affected (0.0045 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+                                          -> values ('Luna', 'Gato', 'Siamés', 1, 'Blanco', 'Pequeño', 3.2, '2022-05-10', 'Hembra', 2);
+Query OK, 1 row affected (0.0019 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+                                          -> values ('Rocky', 'Perro', 'Bulldog', 3, 'Marrón', 'Mediano', 18.7, '2019-09-22', 'Macho', 3);
+Query OK, 1 row affected (0.0013 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+                                          -> values ('Simba', 'Gato', 'Persa', 2, 'Naranja', 'Mediano', 4.5, '2022-07-20', 'Macho', 2);
+Query OK, 1 row affected (0.0021 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > select * from propietarios;
++----------------+--------+--------------+--------------+---------------------+----------+---------------+------------+--------------------+----------------+
+| id_propietario | nombre | apellido_pat | apellido_mat | direccion           | ciudad   | codigo_Postal | telefono   | correo_electronico | fecha_registro |
++----------------+--------+--------------+--------------+---------------------+----------+---------------+------------+--------------------+----------------+
+|              1 | Juan   | Gómez        | López        | Calle 123           | Ciudad A | 12345         | 6149876543 | juan@example.com   | 2023-05-01     |
+|              2 | María  | Pérez        | González     | Avenida 456         | Ciudad B | 54321         | 6149876543 | maria@example.com  | 2023-05-02     |
+|              3 | Pedro  | Rodríguez    | Martínez     | Calle Principal 789 | Ciudad C | 67890         | 6149876543 | pedro@example.com  | 2023-05-03     |
++----------------+--------+--------------+--------------+---------------------+----------+---------------+------------+--------------------+----------------+
+3 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL > select * from mascotas;
++----+--------+---------+----------+--------+------+---------+---------+-------+------------------+----------------+
+| id | nombre | especie | raza     | sexo   | edad | color   | tamaño | peso  | fecha_nacimiento | id_propietario |
++----+--------+---------+----------+--------+------+---------+---------+-------+------------------+----------------+
+|  1 | Max    | Perro   | Labrador | Macho  |    2 | Negro   | Grande  | 25.50 | 2021-03-15       |              1 |
+|  2 | Luna   | Gato    | Siamés   | Hembra |    1 | Blanco  | Pequeño |  3.20 | 2022-05-10       |              2 |
+|  3 | Rocky  | Perro   | Bulldog  | Macho  |    3 | Marrón  | Mediano | 18.70 | 2019-09-22       |              3 |
+|  4 | Simba  | Gato    | Persa    | Macho  |    2 | Naranja | Mediano |  4.50 | 2022-07-20       |              2 |
++----+--------+---------+----------+--------+------+---------+---------+-------+------------------+----------------+
+4 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  chip_dogs  SQL >

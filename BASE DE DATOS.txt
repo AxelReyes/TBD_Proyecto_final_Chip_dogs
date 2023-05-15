@@ -1,0 +1,63 @@
+create table mascotas (
+  id int auto_increment primary key,
+  nombre varchar(50) not null,
+  especie enum('Perro','Gato') not null,
+  raza varchar(50) not null,
+  sexo enum('Macho','Hembra') not null,
+  edad int null,
+  color varchar(50) not null,
+  tamaño enum('Pequeño','Mediano','Grande') not null,
+  peso decimal(4,2) null,
+  fecha_nacimiento date null,
+  id_propietario int,
+foreign key(id_propietario) references propietarios(id_propietario) on delete cascade on update cascade
+);
+
+
+create table propietarios (
+  id_propietario int primary key auto_increment,
+  nombre varchar(50) not null,
+  apellido_pat varchar(50) null,
+  apellido_mat varchar(50) null,
+  direccion varchar(100) not null,
+  ciudad varchar(50) not null,
+  codigo_Postal varchar(10) not null,
+  telefono varchar(20) not null,
+  correo_electronico varchar(100) not null,
+  fecha_registro date not null
+);
+
+Considera utilizar una columna adicional 
+para almacenar la fecha de registro del propietario, 
+por ejemplo, "fecha_registro DATE NOT NULL". 
+Esto puede ser útil para realizar un seguimiento 
+de cuándo se registró cada propietario en el sistema.
+
+
+SELECT
+
+insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+values('Juan', 'Gómez', 'López', 'Calle 123', 'Ciudad A', '12345', '6149876543', 'juan@example.com', '2023-05-01');
+
+insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+values('María', 'Pérez', 'González', 'Avenida 456', 'Ciudad B', '54321', '6149876543', 'maria@example.com', '2023-05-02');
+
+insert into propietarios (nombre, apellido_pat, apellido_mat, direccion, ciudad, codigo_Postal, telefono, correo_electronico, fecha_registro)
+values ('Pedro', 'Rodríguez', 'Martínez', 'Calle Principal 789', 'Ciudad C', '67890', '6149876543', 'pedro@example.com', '2023-05-03');
+
+
+
+insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+values ('Max', 'Perro', 'Labrador', 2, 'Negro', 'Grande', 25.5, '2021-03-15', 'Macho', 1);
+
+insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+values ('Luna', 'Gato', 'Siamés', 1, 'Blanco', 'Pequeño', 3.2, '2022-05-10', 'Hembra', 2);
+
+insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+values ('Rocky', 'Perro', 'Bulldog', 3, 'Marrón', 'Mediano', 18.7, '2019-09-22', 'Macho', 3);
+
+insert into mascotas (nombre, especie, raza, edad, color, tamaño, peso, fecha_nacimiento, sexo, id_propietario)
+values ('Simba', 'Gato', 'Persa', 2, 'Naranja', 'Mediano', 4.5, '2022-07-20', 'Macho', 2);
+
+
+
